@@ -1,0 +1,39 @@
+{
+  "name": "ionic-platform-web-client-angular",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/driftyco/ionic-platform-web-client-angular.git"
+  },
+  "keywords": [
+    "Ionic",
+    "ionic",
+    "platform",
+    "web",
+    "client",
+    "angular"
+  ],
+  "author": "Ionic",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/driftyco/ionic-platform-web-client-angular/issues"
+  },
+  "homepage": "https://github.com/driftyco/ionic-platform-web-client-angular#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-tslint": "^5.0.0",
+    "gulp-typescript": "^2.13.6",
+    "merge2": "^1.0.2",
+    "tslint": "^3.10.2",
+    "tslint-ionic-rules": "0.0.2",
+    "typescript": "^1.8.10"
+  },
+  "peerDependencies": {
+    "@angular/core": "^2.0.0-rc.1"
+  }
+}
