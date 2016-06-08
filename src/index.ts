@@ -8,7 +8,7 @@ import {
   Auth as _Auth,
   User as _User,
   Deploy as _Deploy
-} from 'ionic-platform-web-client';
+} from '@ionic/platform-client';
 
 @Injectable()
 export class Core {
