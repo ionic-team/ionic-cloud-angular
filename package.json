@@ -1,6 +1,6 @@
 {
   "name": "ionic-platform-web-client-angular",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/driftyco/ionic-platform-web-client-angular#readme",
   "dependencies": {
-    "ionic-platform-web-client": "^0.8.0-beta.0"
+    "ionic-platform-web-client": "0.8.0-beta.1"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
