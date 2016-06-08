@@ -1,11 +1,11 @@
-# ionic-platform-web-client-angular
+# Ionic Platform Client for Angular 2
 
 Angular 2 integration for the Ionic Platform in your app.
 
 ## Installation
 
 ```bash
-$ npm install --save ionic-platform-web-client-angular
+$ npm install --save @ionic/platform-client-angular
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ other service class.
 
 ```javascript
 import ...
-import {Auth, User, providers} from 'ionic-platform-web-client-angular';
+import {Auth, User, providers} from '@ionic/platform-client-angular';
 
 let platformConfig = {
   'core': {
