@@ -6,6 +6,7 @@ import {
   Push as _Push,
   Analytics as _Analytics,
   Auth as _Auth,
+  User as _User,
   Deploy as _Deploy
 } from 'ionic-platform-web-client';
 
@@ -26,6 +27,9 @@ export class Analytics extends _Analytics {}
 export class Auth extends _Auth {}
 
 @Injectable()
+export class User extends _User {}
+
+@Injectable()
 export class Deploy extends _Deploy {}
 
 export interface Settings {
@@ -42,6 +46,7 @@ export function providers(settings: Settings): Provider[] {
     provide(Core, {'useValue': core}),
     provide(Push, {'useValue': new Push(settings.push)}),
     provide(Analytics, {'useValue': new Analytics(settings.analytics)}),
-    provide(Deploy, {'useValue': new Deploy()})
+    provide(Deploy, {'useValue': new Deploy()}),
+    provide(User, {'useFactory': () => { return User.current(); }})
   ];
 }
