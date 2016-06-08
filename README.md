@@ -19,6 +19,12 @@ other service class.
 import ...
 import {Auth, User, providers} from 'ionic-platform-web-client-angular';
 
+let platformConfig = {
+  'core': {
+    'app_id': 'YOUR-APP-ID'
+  }
+};
+
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>'
 })
@@ -35,12 +41,6 @@ export class MyApp {
     });
   }
 }
-
-let platformConfig = {
-  'core': {
-    'app_id': 'YOUR-APP-ID'
-  }
-};
 
 ionicBootstrap(MyApp, providers(platformConfig), { /* Ionic Framework Config */ });
 ```
