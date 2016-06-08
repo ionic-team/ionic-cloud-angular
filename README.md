@@ -36,15 +36,13 @@ export class MyApp {
   }
 }
 
-let customProviders = [ /* Custom Providers */ ];
-
-let config = {
+let platformConfig = {
   'core': {
     'app_id': 'YOUR-APP-ID'
   }
 };
 
-ionicBootstrap(MyApp, [providers(config), customProviders], { /* Ionic Framework Config */ });
+ionicBootstrap(MyApp, providers(platformConfig), { /* Ionic Framework Config */ });
 ```
 
 ## Issues
