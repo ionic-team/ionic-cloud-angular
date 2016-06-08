@@ -11,7 +11,7 @@ gulp.task('lint', function() {
 
 gulp.task('build', function() {
   var tsProject = ts.createProject('tsconfig.json');
-  var tsResult = gulp.src(["src/**/*.ts"])
+  var tsResult = gulp.src(["typings/index.d.ts", "src/**/*.ts"])
     .pipe(ts(tsProject));
 
   return merge([
