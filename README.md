@@ -8,6 +8,13 @@ Angular 2 integration for the Ionic Platform in your app.
 $ npm install --save ionic-platform-web-client-angular
 ```
 
+## Usage
+
+In your `app.ts` file, tell Angular about the platform providers by calling the imported `providers` function with a config and passing it to
+[`ionicBootstrap`](http://ionicframework.com/docs/v2/api/config/Config/)
+function. Then, use the injectable platform classes (`Auth`, `User`, `Push`, `Deploy`, etc.) in your app's classes just as you would any
+other service class.
+
 ```javascript
 import ...
 import {Auth, User, providers} from 'ionic-platform-web-client-angular';
@@ -29,13 +36,15 @@ export class MyApp {
   }
 }
 
+let customProviders = [ /* Custom Providers */ ];
+
 let config = {
   'core': {
     'app_id': 'YOUR-APP-ID'
   }
 };
 
-ionicBootstrap(MyApp, providers(config), {});
+ionicBootstrap(MyApp, [providers(config), customProviders], { /* Ionic Framework Config */ });
 ```
 
 ## Issues
