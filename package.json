@@ -1,5 +1,5 @@
 {
-  "name": "ionic-platform-web-client-angular",
+  "name": "@ionic/platform-client-angular",
   "version": "0.0.2",
   "description": "",
   "main": "dist/index.js",
