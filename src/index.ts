@@ -2,6 +2,7 @@ import { Injectable, provide, Provider } from '@angular/core';
 import {
   ISettings,
   PushOptions,
+  EventEmitter as _EventEmitter,
   IonicPlatform as _platform,
   Push as _Push,
   Analytics as _Analytics,
@@ -17,6 +18,9 @@ export class Core {
     _platform.init(cfg);
   }
 }
+
+@Injectable()
+export class EventEmitter extends _EventEmitter {}
 
 @Injectable()
 export class Push extends _Push {}
@@ -47,6 +51,7 @@ export function providers(settings: Settings): Provider[] {
   core.init(settings.core);
 
   return [
+    provide(EventEmitter, {'useValue': _platform.emitter}),
     provide(Core, {'useValue': core}),
     provide(Push, {'useValue': new Push(settings.push)}),
     provide(Analytics, {'useValue': new Analytics(settings.analytics)}),
