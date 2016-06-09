@@ -7,7 +7,8 @@ import {
   Analytics as _Analytics,
   Auth as _Auth,
   User as _User,
-  Deploy as _Deploy
+  Deploy as _Deploy,
+  Environment as _Environment
 } from '@ionic/platform-client';
 
 @Injectable()
@@ -32,6 +33,9 @@ export class User extends _User {}
 @Injectable()
 export class Deploy extends _Deploy {}
 
+@Injectable()
+export class Environment extends _Environment {}
+
 export interface Settings {
   core: ISettings;
   push?: PushOptions;
@@ -47,6 +51,7 @@ export function providers(settings: Settings): Provider[] {
     provide(Push, {'useValue': new Push(settings.push)}),
     provide(Analytics, {'useValue': new Analytics(settings.analytics)}),
     provide(Deploy, {'useValue': new Deploy()}),
+    provide(Environment, {'useValue': new Environment()}),
     provide(User, {'useFactory': () => { return User.current(); }})
   ];
 }
