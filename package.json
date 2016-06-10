@@ -1,20 +1,20 @@
 {
-  "name": "@ionic/platform-client-angular",
-  "version": "0.0.8",
-  "description": "Ionic Platform Client for Angular 2",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "name": "@ionic/cloud-angular",
+  "version": "0.0.9",
+  "description": "Ionic Cloud Client for Angular 2",
+  "main": "dist/es5/index.js",
+  "typings": "dist/es5/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/driftyco/ionic-platform-web-client-angular.git"
+    "url": "git+https://github.com/driftyco/ionic-cloud-angular.git"
   },
   "keywords": [
     "Ionic",
     "ionic",
-    "platform",
+    "cloud",
     "web",
     "client",
     "angular"
@@ -22,13 +22,14 @@
   "author": "Ionic",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/driftyco/ionic-platform-web-client-angular/issues"
+    "url": "https://github.com/driftyco/ionic-cloud-angular/issues"
   },
-  "homepage": "https://github.com/driftyco/ionic-platform-web-client-angular#readme",
+  "homepage": "https://github.com/driftyco/ionic-cloud-angular#readme",
   "dependencies": {
-    "@ionic/platform-client": "^0.8.0-beta.6"
+    "@ionic/cloud": "0.8.0-beta.7"
   },
   "devDependencies": {
+    "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-tslint": "^5.0.0",
     "gulp-typescript": "^2.13.6",

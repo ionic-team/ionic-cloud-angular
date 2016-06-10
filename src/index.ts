@@ -10,7 +10,7 @@ import {
   User as _User,
   Deploy as _Deploy,
   Environment as _Environment
-} from '@ionic/platform-client';
+} from '@ionic/cloud';
 
 @Injectable()
 export class Core {
@@ -46,7 +46,7 @@ export interface Settings {
   analytics?: any;
 }
 
-export function providers(settings: Settings): Provider[] {
+export function provideCloud(settings: Settings): Provider[] {
   let core = new Core();
   core.init(settings.core);
 

@@ -5,21 +5,23 @@ Angular 2 integration for the Ionic Platform in your app.
 ## Installation
 
 ```bash
-$ npm install --save @ionic/platform-client-angular
+$ npm install --save @ionic/cloud-angular
 ```
 
 ## Usage
 
-In your `app.ts` file, tell Angular about the platform providers by calling the imported `providers` function with a config and passing it to
+In your `app.ts` file, tell Angular about the Ionic Cloud providers by calling
+the imported `provideCloud` function with a config and passing it to
 [`ionicBootstrap`](http://ionicframework.com/docs/v2/api/config/Config/)
-function. Then, use the injectable platform classes (`Auth`, `User`, `Push`, `Deploy`, etc.) in your app's classes just as you would any
-other service class.
+function. Then, use the injectable cloud classes (`Auth`, `User`, `Push`,
+`Deploy`, etc.) in your app's classes just as you would any other service
+class.
 
 ```javascript
 import ...
-import {Auth, User, providers} from '@ionic/platform-client-angular';
+import {Auth, User, provideCloud} from '@ionic/cloud-angular';
 
-let platformConfig = {
+let cloudConfig = {
   'core': {
     'app_id': 'YOUR-APP-ID'
   }
@@ -42,12 +44,12 @@ export class MyApp {
   }
 }
 
-ionicBootstrap(MyApp, providers(platformConfig), { /* Ionic Framework Config */ });
+ionicBootstrap(MyApp, provideCloud(cloudConfig));
 ```
 
 ## Issues
 
-This package wraps the [platform client](https://github.com/driftyco/ionic-platform-web-client) to
+This package wraps the [cloud client](https://github.com/driftyco/ionic-cloud) to
 add Angular integration. Because of this, most issues should be reported in the
-[platform client issues](https://github.com/driftyco/ionic-platform-web-client/issues) or the
-[platform issues](https://github.com/driftyco/ionic-platform-issues/issues).
+[cloud client issues](https://github.com/driftyco/ionic-cloud/issues) or the
+[cloud issues](https://github.com/driftyco/ionic-cloud-issues/issues).
