@@ -40,13 +40,13 @@ export class Deploy extends _Deploy {}
 @Injectable()
 export class Environment extends _Environment {}
 
-export interface Settings {
+export interface CloudSettings {
   core: ISettings;
   push?: PushOptions;
   analytics?: any;
 }
 
-export function provideCloud(settings: Settings): Provider[] {
+export function provideCloud(settings: CloudSettings): Provider[] {
   let core = new Core();
   core.init(settings.core);
 

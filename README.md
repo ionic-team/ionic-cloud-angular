@@ -19,9 +19,9 @@ class.
 
 ```javascript
 import ...
-import {Auth, User, provideCloud} from '@ionic/cloud-angular';
+import {Auth, User, CloudSettings, provideCloud} from '@ionic/cloud-angular';
 
-const cloudConfig = {
+const cloudSettings: CloudSettings = {
   'core': {
     'app_id': 'YOUR-APP-ID'
   }
@@ -45,7 +45,7 @@ export class MyApp {
 }
 
 // Register the Ionic Cloud in the bootstrap
-ionicBootstrap(MyApp, [provideCloud(cloudConfig)]);
+ionicBootstrap(MyApp, [provideCloud(cloudSettings)]);
 ```
 
 ## Issues
