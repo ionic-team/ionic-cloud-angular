@@ -11,6 +11,28 @@ import {
   Environment as _Environment
 } from '@ionic/cloud';
 
+interface Newable {
+  new(...args: any[]): any;
+}
+
+class SingletonContainer {
+  public args: any[];
+  private instance: any;
+
+  constructor(public cls: Newable, ...args: any[]) {
+    this.cls = cls;
+    this.args = args;
+  }
+
+  getInstance(): any {
+    if (!this.instance) {
+      this.instance = new this.cls(...this.args);
+    }
+
+    return this.instance;
+  }
+}
+
 @Injectable()
 export class Core {
   init(cfg: ISettings) {
@@ -45,12 +67,15 @@ export function provideCloud(settings: CloudSettings): Provider[] {
   let core = new Core();
   core.init(settings.core);
 
+  let pushFactory = new SingletonContainer(Push, settings.push);
+  let deployFactory = new SingletonContainer(Deploy);
+
   return [
-    provide(EventEmitter, {'useValue': _platform.emitter}),
     provide(Core, {'useValue': core}),
-    provide(Push, {'useValue': new Push(settings.push)}),
-    provide(Deploy, {'useValue': new Deploy()}),
+    provide(EventEmitter, {'useValue': _platform.emitter}),
     provide(Environment, {'useValue': new Environment()}),
-    provide(User, {'useFactory': () => { return User.current(); }})
+    provide(User, {'useFactory': () => { return User.current(); }}),
+    provide(Push, {'useFactory': () => { return pushFactory.getInstance() }}),
+    provide(Deploy, {'useFactory': () => { return deployFactory.getInstance() }})
   ];
 }
