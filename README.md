@@ -1,6 +1,6 @@
-# Ionic Platform Client for Angular 2
+# Ionic Cloud Client for Angular 2
 
-Angular 2 integration for the Ionic Platform in your app.
+Angular 2 integration for the Ionic Cloud in your app.
 
 ## Installation
 
@@ -47,10 +47,3 @@ export class MyApp {
 // Register the Ionic Cloud in the bootstrap
 ionicBootstrap(MyApp, [provideCloud(cloudSettings)]);
 ```
-
-## Issues
-
-This package wraps the [cloud client](https://github.com/driftyco/ionic-cloud) to
-add Angular integration. Because of this, most issues should be reported in the
-[cloud client issues](https://github.com/driftyco/ionic-cloud/issues) or the
-[cloud issues](https://github.com/driftyco/ionic-cloud-issues/issues).
