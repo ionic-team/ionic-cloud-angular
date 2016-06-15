@@ -35,7 +35,7 @@
     "gulp-typescript": "^2.13.6",
     "merge2": "^1.0.2",
     "tslint": "^3.10.2",
-    "tslint-ionic-rules": "0.0.2",
+    "tslint-ionic-rules": "*",
     "typescript": "^1.8.10",
     "typings": "^1.0.4"
   },
