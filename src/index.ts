@@ -3,7 +3,7 @@ import {
   ISettings,
   PushOptions,
   EventEmitter as _EventEmitter,
-  IonicPlatform as _platform,
+  IonicCloud as _platform,
   Push as _Push,
   Auth as _Auth,
   User as _User,
