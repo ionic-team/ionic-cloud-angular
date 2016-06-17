@@ -8,7 +8,8 @@ import {
   Auth as _Auth,
   User as _User,
   Deploy as _Deploy,
-  Environment as _Environment
+  Environment as _Environment,
+  Links as _Links
 } from '@ionic/cloud';
 
 interface Newable {
@@ -57,6 +58,9 @@ export class Deploy extends _Deploy {}
 
 @Injectable()
 export class Environment extends _Environment {}
+
+@Injectable()
+export class Links extends _Links {}
 
 export interface CloudSettings {
   core: ISettings;
