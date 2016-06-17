@@ -8,6 +8,7 @@ import {
   Auth as _Auth,
   User as _User,
   Deploy as _Deploy,
+  Insights as _Insights,
   Environment as _Environment
 } from '@ionic/cloud';
 
@@ -56,6 +57,9 @@ export class User extends _User {}
 export class Deploy extends _Deploy {}
 
 @Injectable()
+export class Insights extends _Insights {}
+
+@Injectable()
 export class Environment extends _Environment {}
 
 export interface CloudSettings {
@@ -74,6 +78,7 @@ export function provideCloud(settings: CloudSettings): Provider[] {
     provide(Core, {'useValue': core}),
     provide(EventEmitter, {'useValue': _platform.emitter}),
     provide(Environment, {'useValue': new Environment()}),
+    provide(Insights, {'useValue': _platform.insights}),
     provide(User, {'useFactory': () => { return User.current(); }}),
     provide(Push, {'useFactory': () => { return pushFactory.getInstance() }}),
     provide(Deploy, {'useFactory': () => { return deployFactory.getInstance() }})
