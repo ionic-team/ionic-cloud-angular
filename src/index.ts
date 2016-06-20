@@ -73,6 +73,7 @@ export function provideCloud(settings: CloudSettings): Provider[] {
 
   let pushFactory = new SingletonContainer(Push, settings.push);
   let deployFactory = new SingletonContainer(Deploy);
+  let linksFactory = new SingletonContainer(Links);
 
   return [
     provide(Core, {'useValue': core}),
@@ -80,6 +81,7 @@ export function provideCloud(settings: CloudSettings): Provider[] {
     provide(Environment, {'useValue': new Environment()}),
     provide(User, {'useFactory': () => { return User.current(); }}),
     provide(Push, {'useFactory': () => { return pushFactory.getInstance() }}),
-    provide(Deploy, {'useFactory': () => { return deployFactory.getInstance() }})
+    provide(Deploy, {'useFactory': () => { return deployFactory.getInstance() }}),
+    provide(Links, {'useFactory': () => { return linksFactory.getInstance() }})
   ];
 }
