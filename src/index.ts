@@ -13,14 +13,13 @@ import {
   Device as _Device,
   EventEmitter as _EventEmitter,
   Insights as _Insights,
-  LocalStorageStrategy,
   Logger as _Logger,
   Push as _Push,
   SessionStorageStrategy,
   SingleUserService as _SingleUserService,
-  Storage as _Storage,
   User as _User,
-  UserContext as _UserContext
+  Database as _Database,
+  DBSettings
 } from '@ionic/cloud';
 
 @Injectable()
@@ -37,6 +36,9 @@ export class Cordova extends _Cordova {}
 
 @Injectable()
 export class Core extends _Core {}
+
+@Injectable()
+export class Database extends _Database {}
 
 @Injectable()
 export class Deploy extends _Deploy {}
@@ -60,13 +62,8 @@ export class Push extends _Push {}
 export class SingleUserService extends _SingleUserService {}
 
 @Injectable()
-export class Storage extends _Storage {}
-
-@Injectable()
 export class User extends _User {}
 
-@Injectable()
-export class UserContext extends _UserContext {}
 
 export interface CloudSettings extends ISettings {}
 
@@ -95,7 +92,6 @@ export function provideCloud(settings: CloudSettings): Provider[] {
     provide(Logger, {'useFactory': () => { return container.logger; }}),
     provide(Push, {'useFactory': () => { return container.push; }}),
     provide(User, {'useFactory': (singleUserService: SingleUserService) => { return singleUserService.current(); }, 'deps': [SingleUserService]}),
-    provide(Storage, {'useFactory': () => { return container.storage; }}),
-    provide(UserContext, {'useFactory': () => { return container.userContext; }})
+    provide(Database, {'useValue': new Database(settings.database)})
   ];
 }
