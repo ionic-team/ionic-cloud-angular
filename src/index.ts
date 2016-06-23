@@ -1,6 +1,6 @@
 import { Injectable, provide, Provider } from '@angular/core';
+import { DIContainer, ISettings, PushOptions } from '@ionic/cloud';
 import {
-  ISettings,
   Auth as _Auth,
   AuthType,
   Client as _Client,
@@ -15,7 +15,6 @@ import {
   LocalStorageStrategy,
   Logger as _Logger,
   Push as _Push,
-  PushOptions,
   SessionStorageStrategy,
   SingleUserService as _SingleUserService,
   Storage as _Storage,
@@ -77,40 +76,31 @@ export interface CloudSettings {
 }
 
 export function provideCloud(settings: CloudSettings): Provider[] {
-  let config = new Config();
-  config.register(settings.core);
+  let container = new DIContainer();
 
-  let emitter = new EventEmitter();
-  let logger = new Logger();
-
-  let label = 'ionic_io_auth_' + config.get('app_id');
-  let tokenContext = new CombinedAuthTokenContext(label, new LocalStorageStrategy(), new SessionStorageStrategy());
-  let client = new Client(tokenContext, config.getURL('api'));
-
-  let core = new Core(config, logger, emitter, client);
-  core.init();
-
-  let device = new Device(emitter);
-  let cordova = new Cordova({}, device, emitter, logger);
+  let cordova = container.cordova;
   cordova.bootstrap();
 
-  let authModules = AuthType.createAuthModules(config, client);
+  let config = container.config;
+  config.register(settings.core);
+
+  let core = container.core;
+  core.init();
 
   return [
-    provide(Auth, {'useFactory': (singleUserService: SingleUserService) => { return new Auth({}, emitter, authModules, tokenContext, singleUserService); }, 'deps': [SingleUserService]}),
-    provide(Config, {'useValue': core}),
+    provide(Auth, {'useFactory': () => { return container.auth; }}),
+    provide(Config, {'useValue': config}),
     provide(Cordova, {'useValue': cordova}),
     provide(Core, {'useValue': core}),
-    provide(Client, {'useValue': client}),
-    provide(Deploy, {'useFactory': () => { return new Deploy({}, config, emitter, logger); }}),
-    provide(Device, {'useValue': device}),
-    provide(EventEmitter, {'useValue': emitter}),
-    provide(SingleUserService, {'useFactory': (userContext: UserContext) => { return new SingleUserService({}, client, userContext); }, 'deps': [UserContext]}),
-    provide(Insights, {'useFactory': (core: Core) => { return core.insights; }, 'deps': [Core]}),
-    provide(Logger, {'useValue': logger}),
-    provide(Push, {'useFactory': (auth: Auth, storage: Storage) => { return new Push(settings.push, config, auth, device, client, emitter, storage, logger); }, 'deps': [Auth, Storage]}),
+    provide(Client, {'useFactory': () => { return container.client; }}),
+    provide(Deploy, {'useFactory': () => { return container.deploy; }}),
+    provide(Device, {'useFactory': () => { return container.device; }}),
+    provide(EventEmitter, {'useFactory': () => { return container.eventEmitter; }}),
+    provide(SingleUserService, {'useFactory': () => { return container.singleUserService; }}),
+    provide(Logger, {'useFactory': () => { return container.logger; }}),
+    provide(Push, {'useFactory': () => { return container.push; }}),
     provide(User, {'useFactory': (singleUserService: SingleUserService) => { return singleUserService.current(); }, 'deps': [SingleUserService]}),
-    provide(Storage, {'useFactory': () => { return new Storage({}, new LocalStorageStrategy()); }}),
-    provide(UserContext, {'useFactory': (storage: Storage) => { return new UserContext(storage, config); }, 'deps': [Storage]})
+    provide(Storage, {'useFactory': () => { return container.storage; }}),
+    provide(UserContext, {'useFactory': () => { return container.userContext; }})
   ];
 }
