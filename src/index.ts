@@ -4,7 +4,6 @@ import {
   Auth as _Auth,
   AuthType,
   Client as _Client,
-  CombinedAuthTokenContext as _CombinedAuthTokenContext,
   Config as _Config,
   Cordova as _Cordova,
   Core as _Core,
@@ -27,9 +26,6 @@ export class Auth extends _Auth {}
 
 @Injectable()
 export class Client extends _Client {}
-
-@Injectable()
-export class CombinedAuthTokenContext extends _CombinedAuthTokenContext {}
 
 @Injectable()
 export class Config extends _Config {}
@@ -75,9 +71,9 @@ export interface CloudSettings {
   push?: PushOptions;
 }
 
-export function provideCloud(settings: CloudSettings): Provider[] {
-  let container = new DIContainer();
+export let container = new DIContainer();
 
+export function provideCloud(settings: CloudSettings): Provider[] {
   let cordova = container.cordova;
   cordova.bootstrap();
 
@@ -85,7 +81,6 @@ export function provideCloud(settings: CloudSettings): Provider[] {
   config.register(settings.core);
 
   let core = container.core;
-  core.init();
 
   return [
     provide(Auth, {'useFactory': () => { return container.auth; }}),
