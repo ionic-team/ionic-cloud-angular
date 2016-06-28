@@ -66,14 +66,24 @@ export class User extends _User {}
 @Injectable()
 export class UserContext extends _UserContext {}
 
+export interface LoggerSettings {
+  silent?: boolean;
+}
+
 export interface CloudSettings {
   core: ISettings;
   push?: PushOptions;
+  logger?: LoggerSettings;
 }
 
 export let container = new DIContainer();
 
 export function provideCloud(settings: CloudSettings): Provider[] {
+  if (settings.logger) {
+    let logger = container.logger;
+    logger.silent = settings.logger.silent;
+  }
+
   let cordova = container.cordova;
   cordova.bootstrap();
 
