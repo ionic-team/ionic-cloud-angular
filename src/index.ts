@@ -1,3 +1,5 @@
+export * from '@ionic/cloud';
+
 import { Injectable, provide, Provider } from '@angular/core';
 import { DIContainer, ISettings, PushOptions } from '@ionic/cloud';
 import {
