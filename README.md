@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/%40ionic%2Fcloud-angular.svg)](https://badge.fury.io/js/%40ionic%2Fcloud-angular)
+[![npm](https://img.shields.io/npm/v/@ionic/cloud-angular.svg?maxAge=2592000)](https://www.npmjs.com/package/@ionic/cloud-angular)
 
 # Ionic Cloud Client for Angular 2
 
