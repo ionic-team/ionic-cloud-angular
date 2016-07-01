@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/%40ionic%2Fcloud-angular.svg)](https://badge.fury.io/js/%40ionic%2Fcloud-angular)
+
 # Ionic Cloud Client for Angular 2
 
 Angular 2 integration for the Ionic Cloud in your app.
