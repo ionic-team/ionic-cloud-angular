@@ -35,10 +35,10 @@ const cloudSettings: CloudSettings = {
 export class MyApp {
   rootPage: any = TabsPage;
 
-  constructor(platform: Platform, user: User) {
+  constructor(platform: Platform, public auth: Auth, public user: User) {
     platform.ready().then(() => {
-      Auth.signup({'email': 'hi@ionic.io', 'password': 'puppies123'}).then(() => {
-        // `user` is now the authenticated user
+      this.auth.signup({'email': 'hi@ionic.io', 'password': 'puppies123'}).then(() => {
+        // `this.user` is now the authenticated user
       }, (err) => {
         // something went wrong!
       });
