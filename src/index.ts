@@ -1,7 +1,7 @@
 export * from '@ionic/cloud';
 
 import { Injectable, provide, Provider } from '@angular/core';
-import { DIContainer, ISettings, PushOptions } from '@ionic/cloud';
+import { DIContainer, ISettings } from '@ionic/cloud';
 import {
   Auth as _Auth,
   AuthType,
@@ -68,29 +68,16 @@ export class User extends _User {}
 @Injectable()
 export class UserContext extends _UserContext {}
 
-export interface LoggerSettings {
-  silent?: boolean;
-}
-
-export interface CloudSettings {
-  core: ISettings;
-  push?: PushOptions;
-  logger?: LoggerSettings;
-}
+export interface CloudSettings extends ISettings {}
 
 export let container = new DIContainer();
 
 export function provideCloud(settings: CloudSettings): Provider[] {
-  if (settings.logger) {
-    let logger = container.logger;
-    logger.silent = settings.logger.silent;
-  }
+  let config = container.config;
+  config.register(settings);
 
   let cordova = container.cordova;
   cordova.bootstrap();
-
-  let config = container.config;
-  config.register(settings.core);
 
   let core = container.core;
 
