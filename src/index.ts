@@ -76,10 +76,11 @@ export function provideCloud(settings: CloudSettings): Provider[] {
   let config = container.config;
   config.register(settings);
 
+  let core = container.core;
+  core.init();
+
   let cordova = container.cordova;
   cordova.bootstrap();
-
-  let core = container.core;
 
   return [
     provide(Auth, {'useFactory': () => { return container.auth; }}),
