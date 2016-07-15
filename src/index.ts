@@ -92,6 +92,6 @@ export function provideCloud(settings: CloudSettings): Provider[] {
     provide(Logger, {'useFactory': () => { return container.logger; }}),
     provide(Push, {'useFactory': () => { return container.push; }}),
     provide(User, {'useFactory': (singleUserService: SingleUserService) => { return singleUserService.current(); }, 'deps': [SingleUserService]}),
-    provide(Database, {'useValue': new Database(settings.database)})
+    provide(Database, {'useFactory': () => { return container.database;} })
   ];
 }
