@@ -1,6 +1,6 @@
 {
   "name": "@ionic/cloud-angular",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Ionic Cloud Client for Angular 2",
   "main": "dist/es5/index.js",
   "typings": "dist/es5/index.d.ts",
@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/driftyco/ionic-cloud-angular#readme",
   "dependencies": {
-    "@ionic/cloud": "0.8.0-beta.12"
+    "@ionic/cloud": "0.8.0-beta.13"
   },
   "devDependencies": {
     "del": "^2.2.0",
@@ -40,7 +40,7 @@
     "typings": "^1.0.4"
   },
   "peerDependencies": {
-    "@angular/core": "^2.0.0-rc.1",
-    "rxjs": "^5.0.0-beta.6"
+    "@angular/core": "2.0.0-rc.3",
+    "rxjs": "5.0.0-beta.6"
   }
 }
