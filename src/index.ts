@@ -1,6 +1,6 @@
 export * from '@ionic/cloud';
 
-import { Injectable, provide, Provider } from '@angular/core';
+import { Injectable, NgModule, ModuleWithProviders } from '@angular/core';
 import { DIContainer, CloudSettings } from '@ionic/cloud';
 import {
   Auth as _Auth,
@@ -39,7 +39,14 @@ export class User extends _User {}
 
 export let container = new DIContainer();
 
-export function provideCloud(settings: CloudSettings): Provider[] {
+function provideAuth() { return container.auth; }
+function provideClient() { return container.client; }
+function provideDeploy() { return container.deploy; }
+function provideEventEmitter() { return container.eventEmitter; }
+function providePush() { return container.push; }
+function provideUser() { return container.singleUserService.current(); }
+
+export function provideCloud(settings: CloudSettings): any[] {
   let config = container.config;
   config.register(settings);
 
@@ -50,12 +57,24 @@ export function provideCloud(settings: CloudSettings): Provider[] {
   cordova.bootstrap();
 
   return [
-    provide(Auth, {'useFactory': () => { return container.auth; }}),
-    provide(Client, {'useFactory': () => { return container.client; }}),
-    provide(Config, {'useValue': config}),
-    provide(Deploy, {'useFactory': () => { return container.deploy; }}),
-    provide(EventEmitter, {'useFactory': () => { return container.eventEmitter; }}),
-    provide(Push, {'useFactory': () => { return container.push; }}),
-    provide(User, {'useFactory': () => { return container.singleUserService.current(); }})
+    { provide: Auth, useFactory: provideAuth },
+    { provide: Client, useFactory: provideClient },
+    { provide: Config, useValue: config },
+    { provide: Deploy, useFactory: provideDeploy },
+    { provide: EventEmitter, useFactory: provideEventEmitter },
+    { provide: Push, useFactory: providePush },
+    { provide: User, useFactory: provideUser }
   ];
+}
+
+@NgModule()
+export class CloudModule {
+
+  static forRoot(settings: CloudSettings): ModuleWithProviders {
+    return {
+      ngModule: CloudModule,
+      providers: provideCloud(settings)
+    };
+  }
+
 }
