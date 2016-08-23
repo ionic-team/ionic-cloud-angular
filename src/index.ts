@@ -1,5 +1,6 @@
 export * from '@ionic/cloud';
 
+import { Observable } from 'rxjs';
 import { Injectable, provide, Provider } from '@angular/core';
 import { DIContainer, CloudSettings } from '@ionic/cloud';
 import {
@@ -8,10 +9,33 @@ import {
   Config as _Config,
   Deploy as _Deploy,
   EventEmitter as _EventEmitter,
+  EventHandler,
+  IEventEmitter,
+  IPush as _IPush,
   Insights as _Insights,
   Push as _Push,
+  PushNotificationEvent,
   User as _User,
 } from '@ionic/cloud';
+
+export class Rx {
+  constructor(protected emitter: IEventEmitter) {}
+}
+
+export class PushRx extends Rx {
+  notification(): Observable<PushNotificationEvent> {
+    return Observable.fromEventPattern<PushNotificationEvent>((h: EventHandler) => {
+      return this.emitter.on('push:notification', h);
+    }, (_: Function) => {
+      // https://github.com/Reactive-Extensions/RxJS/issues/1309
+      // this.emitter.off(signal);
+    });
+  }
+}
+
+export interface IPush extends _IPush {
+  rx: PushRx;
+}
 
 @Injectable()
 export class Auth extends _Auth {}
@@ -32,12 +56,20 @@ export class EventEmitter extends _EventEmitter {}
 export class Insights extends _Insights {}
 
 @Injectable()
-export class Push extends _Push {}
+export class Push extends _Push implements IPush {
+  public rx: PushRx;
+}
 
 @Injectable()
 export class User extends _User {}
 
 export let container = new DIContainer();
+
+function buildPush(): IPush {
+  let push = container.push as IPush;
+  push.rx = new PushRx(container.eventEmitter);
+  return push;
+}
 
 export function provideCloud(settings: CloudSettings): Provider[] {
   let config = container.config;
@@ -55,7 +87,7 @@ export function provideCloud(settings: CloudSettings): Provider[] {
     provide(Config, {'useValue': config}),
     provide(Deploy, {'useFactory': () => { return container.deploy; }}),
     provide(EventEmitter, {'useFactory': () => { return container.eventEmitter; }}),
-    provide(Push, {'useFactory': () => { return container.push; }}),
+    provide(Push, {'useFactory': buildPush}),
     provide(User, {'useFactory': () => { return container.singleUserService.current(); }})
   ];
 }
