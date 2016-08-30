@@ -27,13 +27,17 @@ export class PushRx extends Rx {
     return Observable.fromEventPattern<PushNotificationEvent>((h: EventHandler) => {
       return this.emitter.on('push:notification', h);
     }, (_: Function) => {
-      // https://github.com/Reactive-Extensions/RxJS/issues/1309
+      // https://github.com/ReactiveX/rxjs/issues/1900
       // this.emitter.off(signal);
     });
   }
 }
 
 export interface IPush extends _IPush {
+
+  /**
+   * Observables for the push service.
+   */
   rx: PushRx;
 }
 
