@@ -12,6 +12,7 @@ import {
   EventHandler,
   IEventEmitter,
   IPush as _IPush,
+  IPushMessage,
   Insights as _Insights,
   Push as _Push,
   PushNotificationEvent,
@@ -23,9 +24,11 @@ export class Rx {
 }
 
 export class PushRx extends Rx {
-  notification(): Observable<PushNotificationEvent> {
-    return Observable.fromEventPattern<PushNotificationEvent>((h: EventHandler) => {
-      return this.emitter.on('push:notification', h);
+  notification(): Observable<IPushMessage> {
+    return Observable.fromEventPattern<IPushMessage>((h: EventHandler) => {
+      return this.emitter.on('push:notification', (data: PushNotificationEvent) => {
+        h(data.message);
+      });
     }, (_: Function) => {
       // https://github.com/ReactiveX/rxjs/issues/1900
       // this.emitter.off(signal);
