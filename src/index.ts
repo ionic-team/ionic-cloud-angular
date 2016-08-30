@@ -27,7 +27,7 @@ export class PushRx extends Rx {
   notification(): Observable<IPushMessage> {
     return Observable.fromEventPattern<IPushMessage>((h: EventHandler) => {
       return this.emitter.on('push:notification', (data: PushNotificationEvent) => {
-        h(data.message);
+        return h(data.message);
       });
     }, (_: Function) => {
       // https://github.com/ReactiveX/rxjs/issues/1900
