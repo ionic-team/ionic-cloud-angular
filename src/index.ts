@@ -34,10 +34,6 @@ export class PushRx extends Rx {
 }
 
 export interface IPush extends _IPush {
-
-  /**
-   * Observables for the push service.
-   */
   rx: PushRx;
 }
 
@@ -61,6 +57,10 @@ export class Insights extends _Insights {}
 
 @Injectable()
 export class Push extends _Push implements IPush {
+
+  /**
+   * Observables for the push service.
+   */
   public rx: PushRx;
 }
 
