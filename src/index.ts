@@ -5,6 +5,8 @@ import { Injectable, provide, Provider } from '@angular/core';
 import { DIContainer, CloudSettings } from '@ionic/cloud';
 import {
   Auth as _Auth,
+  FacebookNativeAuth as _FacebookNativeAuth,
+  GoogleNativeAuth as _GoogleNativeAuth,
   Client as _Client,
   Config as _Config,
   Deploy as _Deploy,
@@ -39,6 +41,12 @@ export class PushRx extends Rx {
 export interface IPush extends _IPush {
   rx: PushRx;
 }
+
+@Injectable()
+export class FacebookNativeAuth extends _FacebookNativeAuth {}
+
+@Injectable()
+export class GoogleNativeAuth extends _GoogleNativeAuth {}
 
 @Injectable()
 export class Auth extends _Auth {}
@@ -90,6 +98,8 @@ export function provideCloud(settings: CloudSettings): Provider[] {
 
   return [
     provide(Auth, {'useFactory': () => { return container.auth; }}),
+    provide(FacebookNativeAuth, {'useFactory': () => { return container.facebookNativeAuth; }}),
+    provide(GoogleNativeAuth, {'useFactory': () => { return container.googleNativeAuth; }}),
     provide(Client, {'useFactory': () => { return container.client; }}),
     provide(Config, {'useValue': config}),
     provide(Deploy, {'useFactory': () => { return container.deploy; }}),
