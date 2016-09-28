@@ -1,26 +1,49 @@
 export * from '@ionic/cloud';
 
-import { Injectable, provide, Provider } from '@angular/core';
-import { DIContainer, ISettings } from '@ionic/cloud';
+import { Observable } from 'rxjs';
+import { Injectable, ModuleWithProviders, NgModule } from '@angular/core';
+import { DIContainer, CloudSettings } from '@ionic/cloud';
 import {
   Auth as _Auth,
-  AuthType,
   Client as _Client,
   Config as _Config,
-  Cordova as _Cordova,
-  Core as _Core,
-  Deploy as _Deploy,
-  Device as _Device,
-  EventEmitter as _EventEmitter,
-  Insights as _Insights,
-  Logger as _Logger,
-  Push as _Push,
-  SessionStorageStrategy,
-  SingleUserService as _SingleUserService,
-  User as _User,
   Database as _Database,
-  DBSettings
+  Deploy as _Deploy,
+  EventHandler,
+  IEventEmitter,
+  IAuth,
+  IClient,
+  IDatabase,
+  IDeploy,
+  IPush as _IPush,
+  IPushMessage,
+  IUser,
+  Insights as _Insights,
+  Push as _Push,
+  PushNotificationEvent,
+  User as _User,
 } from '@ionic/cloud';
+
+export class Rx {
+  constructor(protected emitter: IEventEmitter) {}
+}
+
+export class PushRx extends Rx {
+  notification(): Observable<IPushMessage> {
+    return Observable.fromEventPattern<IPushMessage>((h: EventHandler) => {
+      return this.emitter.on('push:notification', (data: PushNotificationEvent) => {
+        return h(data.message);
+      });
+    }, (_: Function) => {
+      // https://github.com/ReactiveX/rxjs/issues/1900
+      // this.emitter.off(signal);
+    });
+  }
+}
+
+export interface IPush extends _IPush {
+  rx: PushRx;
+}
 
 @Injectable()
 export class Auth extends _Auth {}
@@ -32,66 +55,77 @@ export class Client extends _Client {}
 export class Config extends _Config {}
 
 @Injectable()
-export class Cordova extends _Cordova {}
-
-@Injectable()
-export class Core extends _Core {}
-
-@Injectable()
 export class Database extends _Database {}
 
 @Injectable()
 export class Deploy extends _Deploy {}
 
 @Injectable()
-export class Device extends _Device {}
-
-@Injectable()
-export class EventEmitter extends _EventEmitter {}
-
-@Injectable()
 export class Insights extends _Insights {}
 
 @Injectable()
-export class Logger extends _Logger {}
+export class Push extends _Push implements IPush {
 
-@Injectable()
-export class Push extends _Push {}
-
-@Injectable()
-export class SingleUserService extends _SingleUserService {}
+  /**
+   * Observables for the push service.
+   */
+  public rx: PushRx;
+}
 
 @Injectable()
 export class User extends _User {}
 
-
-export interface CloudSettings extends ISettings {}
-
 export let container = new DIContainer();
 
-export function provideCloud(settings: CloudSettings): Provider[] {
-  let config = container.config;
-  config.register(settings);
+function provideAuth(): IAuth {
+  return container.auth;
+}
 
-  let core = container.core;
-  core.init();
+function provideClient(): IClient {
+  return container.client;
+}
 
-  let cordova = container.cordova;
-  cordova.bootstrap();
+function provideDatabase(): IDatabase {
+  return container.database;
+}
 
-  return [
-    provide(Auth, {'useFactory': () => { return container.auth; }}),
-    provide(Config, {'useValue': config}),
-    provide(Cordova, {'useValue': cordova}),
-    provide(Core, {'useValue': core}),
-    provide(Client, {'useFactory': () => { return container.client; }}),
-    provide(Deploy, {'useFactory': () => { return container.deploy; }}),
-    provide(Device, {'useFactory': () => { return container.device; }}),
-    provide(EventEmitter, {'useFactory': () => { return container.eventEmitter; }}),
-    provide(SingleUserService, {'useFactory': () => { return container.singleUserService; }}),
-    provide(Logger, {'useFactory': () => { return container.logger; }}),
-    provide(Push, {'useFactory': () => { return container.push; }}),
-    provide(User, {'useFactory': (singleUserService: SingleUserService) => { return singleUserService.current(); }, 'deps': [SingleUserService]}),
-    provide(Database, {'useFactory': () => { return container.database;} })
-  ];
+function provideDeploy(): IDeploy {
+  return container.deploy;
+}
+
+function provideUser(): IUser {
+  return container.singleUserService.current();
+}
+
+function providePush(): IPush {
+  let push = container.push as IPush;
+  push.rx = new PushRx(container.eventEmitter);
+  return push;
+}
+
+@NgModule()
+export class CloudModule {
+  static forRoot(settings: CloudSettings): ModuleWithProviders {
+    let config = container.config;
+    config.register(settings);
+
+    let core = container.core;
+    core.init();
+
+    let cordova = container.cordova;
+    cordova.bootstrap();
+
+    return {
+      'ngModule': CloudModule,
+      'providers': [
+        { 'provide': Auth, 'useFactory': provideAuth },
+        { 'provide': Client, 'useFactory': provideClient },
+        { 'provide': Config, 'useValue': config },
+        { 'provide': Database, 'useFactory': provideDatabase },
+        { 'provide': Deploy, 'useFactory': provideDeploy },
+        { 'provide': Push, 'useFactory': providePush },
+        { 'provide': User, 'useFactory': provideUser },
+      ]
+    };
+  }
 }

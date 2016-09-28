@@ -39,7 +39,7 @@ export class MyApp {
     platform.ready().then(() => {
       let details = {'email': 'hi@ionic.io', 'password': 'puppies123'};
       this.auth.signup(details).then(() => {
-        return this.auth.login(details);
+        return this.auth.login('basic', details);
       }).then(() => {
         // `this.user` is now the authenticated user
       }, (err) => {
