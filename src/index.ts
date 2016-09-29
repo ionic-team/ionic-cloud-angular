@@ -72,23 +72,23 @@ export class User extends _User {}
 
 export let container = new DIContainer();
 
-function provideAuth(): IAuth {
+export function provideAuth(): IAuth {
   return container.auth;
 }
 
-function provideClient(): IClient {
+export function provideClient(): IClient {
   return container.client;
 }
 
-function provideDeploy(): IDeploy {
+export function provideDeploy(): IDeploy {
   return container.deploy;
 }
 
-function provideUser(): IUser {
+export function provideUser(): IUser {
   return container.singleUserService.current();
 }
 
-function providePush(): IPush {
+export function providePush(): IPush {
   let push = container.push as IPush;
   push.rx = new PushRx(container.eventEmitter);
   return push;
