@@ -1,4 +1,7 @@
 {
+    "angularCompilerOptions": {
+        "genDir": "dist/es5"
+    },
     "compilerOptions": {
         "allowJs": false,
         "declaration": true,
@@ -11,6 +14,11 @@
         "noImplicitReturns": true,
         "removeComments": false,
         "sourceMap": true,
+        "outDir": "dist/es5",
         "target": "es5"
-    }
+    },
+    "files": [
+        "typings/index.d.ts",
+        "src/index.ts"
+    ]
 }
