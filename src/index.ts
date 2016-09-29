@@ -17,6 +17,8 @@ import {
   IClient,
   IConfig,
   IDeploy,
+  IFacebookAuth,
+  IGoogleAuth,
   IPush as _IPush,
   IPushMessage,
   IUser,
@@ -120,6 +122,14 @@ export function providePush(container: DIContainer): IPush {
   return push;
 }
 
+export function provideFacebookAuth(container: DIContainer): IFacebookAuth {
+  return container.facebookAuth;
+}
+
+export function provideGoogleAuth(container: DIContainer): IGoogleAuth {
+  return container.googleAuth;
+}
+
 @NgModule()
 export class CloudModule {
   static forRoot(settings: CloudSettings): ModuleWithProviders {
@@ -133,7 +143,9 @@ export class CloudModule {
         { provide: Config, useFactory: provideConfig, deps: [ DIContainer ] },
         { provide: Deploy, useFactory: provideDeploy, deps: [ DIContainer ] },
         { provide: Push, useFactory: providePush, deps: [ DIContainer ] },
-        { provide: User, useFactory: provideUser, deps: [ DIContainer ] }
+        { provide: User, useFactory: provideUser, deps: [ DIContainer ] },
+        { provide: FacebookAuth, useFactory: provideFacebookAuth, deps: [ DIContainer ]},
+        { provide: GoogleAuth, useFactory: provideGoogleAuth, deps: [ DIContainer ]}
       ]
     };
   }
