@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Injectable, ModuleWithProviders, NgModule, OpaqueToken } from '@angular/core';
 import {
   Auth as _Auth,
+  FacebookAuth as _FacebookAuth,
+  GoogleAuth as _GoogleAuth,
   Client as _Client,
   CloudSettings,
   Config as _Config,
@@ -15,6 +17,8 @@ import {
   IClient,
   IConfig,
   IDeploy,
+  IFacebookAuth,
+  IGoogleAuth,
   IPush as _IPush,
   IPushMessage,
   IUser,
@@ -44,6 +48,12 @@ export class PushRx extends Rx {
 export interface IPush extends _IPush {
   rx: PushRx;
 }
+
+@Injectable()
+export class FacebookAuth extends _FacebookAuth {}
+
+@Injectable()
+export class GoogleAuth extends _GoogleAuth {}
 
 @Injectable()
 export class Auth extends _Auth {}
@@ -112,6 +122,14 @@ export function providePush(container: DIContainer): IPush {
   return push;
 }
 
+export function provideFacebookAuth(container: DIContainer): IFacebookAuth {
+  return container.facebookAuth;
+}
+
+export function provideGoogleAuth(container: DIContainer): IGoogleAuth {
+  return container.googleAuth;
+}
+
 @NgModule()
 export class CloudModule {
   static forRoot(settings: CloudSettings): ModuleWithProviders {
@@ -125,7 +143,9 @@ export class CloudModule {
         { provide: Config, useFactory: provideConfig, deps: [ DIContainer ] },
         { provide: Deploy, useFactory: provideDeploy, deps: [ DIContainer ] },
         { provide: Push, useFactory: providePush, deps: [ DIContainer ] },
-        { provide: User, useFactory: provideUser, deps: [ DIContainer ] }
+        { provide: User, useFactory: provideUser, deps: [ DIContainer ] },
+        { provide: FacebookAuth, useFactory: provideFacebookAuth, deps: [ DIContainer ]},
+        { provide: GoogleAuth, useFactory: provideGoogleAuth, deps: [ DIContainer ]}
       ]
     };
   }
