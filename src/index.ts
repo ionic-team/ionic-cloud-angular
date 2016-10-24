@@ -1,20 +1,26 @@
 export * from '@ionic/cloud';
 
 import { Observable } from 'rxjs';
-import { Injectable, ModuleWithProviders, NgModule } from '@angular/core';
-import { DIContainer, CloudSettings } from '@ionic/cloud';
+import { Injectable, ModuleWithProviders, NgModule, OpaqueToken } from '@angular/core';
 import {
   Auth as _Auth,
+  FacebookAuth as _FacebookAuth,
+  GoogleAuth as _GoogleAuth,
   Client as _Client,
+  CloudSettings,
   Config as _Config,
   Database as _Database,
   Deploy as _Deploy,
+  DIContainer as _DIContainer,
   EventHandler,
   IEventEmitter,
   IAuth,
   IClient,
   IDatabase,
+  IConfig,
   IDeploy,
+  IFacebookAuth,
+  IGoogleAuth,
   IPush as _IPush,
   IPushMessage,
   IUser,
@@ -46,6 +52,12 @@ export interface IPush extends _IPush {
 }
 
 @Injectable()
+export class FacebookAuth extends _FacebookAuth {}
+
+@Injectable()
+export class GoogleAuth extends _GoogleAuth {}
+
+@Injectable()
 export class Auth extends _Auth {}
 
 @Injectable()
@@ -59,6 +71,9 @@ export class Database extends _Database {}
 
 @Injectable()
 export class Deploy extends _Deploy {}
+
+@Injectable()
+export class DIContainer extends _DIContainer {}
 
 @Injectable()
 export class Insights extends _Insights {}
@@ -75,56 +90,72 @@ export class Push extends _Push implements IPush {
 @Injectable()
 export class User extends _User {}
 
-export let container = new DIContainer();
+export const CloudSettingsToken = new OpaqueToken('CloudSettings');
 
-function provideAuth(): IAuth {
+export function provideContainer(settings: CloudSettings): DIContainer {
+  let container = new DIContainer();
+  container.config.register(settings);
+  container.core.init();
+  container.cordova.bootstrap();
+
+  return container;
+}
+
+export function provideConfig(container: DIContainer): IConfig {
+  return container.config;
+}
+
+export function provideAuth(container: DIContainer): IAuth {
   return container.auth;
 }
 
-function provideClient(): IClient {
+export function provideClient(container: DIContainer): IClient {
   return container.client;
 }
 
-function provideDatabase(): IDatabase {
+function provideDatabase(container: DIContainer): IDatabase {
   return container.database;
 }
 
-function provideDeploy(): IDeploy {
+export function provideDeploy(container: DIContainer): IDeploy {
   return container.deploy;
 }
 
-function provideUser(): IUser {
+export function provideUser(container: DIContainer): IUser {
   return container.singleUserService.current();
 }
 
-function providePush(): IPush {
+export function providePush(container: DIContainer): IPush {
   let push = container.push as IPush;
   push.rx = new PushRx(container.eventEmitter);
   return push;
 }
 
+export function provideFacebookAuth(container: DIContainer): IFacebookAuth {
+  return container.facebookAuth;
+}
+
+export function provideGoogleAuth(container: DIContainer): IGoogleAuth {
+  return container.googleAuth;
+}
+
 @NgModule()
 export class CloudModule {
   static forRoot(settings: CloudSettings): ModuleWithProviders {
-    let config = container.config;
-    config.register(settings);
-
-    let core = container.core;
-    core.init();
-
-    let cordova = container.cordova;
-    cordova.bootstrap();
-
     return {
-      'ngModule': CloudModule,
-      'providers': [
-        { 'provide': Auth, 'useFactory': provideAuth },
-        { 'provide': Client, 'useFactory': provideClient },
-        { 'provide': Config, 'useValue': config },
-        { 'provide': Database, 'useFactory': provideDatabase },
-        { 'provide': Deploy, 'useFactory': provideDeploy },
-        { 'provide': Push, 'useFactory': providePush },
-        { 'provide': User, 'useFactory': provideUser },
+      ngModule: CloudModule,
+      providers: [
+        { provide: CloudSettingsToken, useValue: settings },
+        { provide: DIContainer, useFactory: provideContainer, deps: [ CloudSettingsToken ] },
+        { provide: Auth, useFactory: provideAuth, deps: [ DIContainer ] },
+        { provide: Client, useFactory: provideClient, deps: [ DIContainer ] },
+        { provide: Config, useFactory: provideConfig, deps: [ DIContainer ] },
+        { provide: Database, useFactory: provideDatabase, deps: [ DIContainer ] },
+        { provide: Deploy, useFactory: provideDeploy, deps: [ DIContainer ] },
+        { provide: Push, useFactory: providePush, deps: [ DIContainer ] },
+        { provide: User, useFactory: provideUser, deps: [ DIContainer ] },
+        { provide: FacebookAuth, useFactory: provideFacebookAuth, deps: [ DIContainer ]},
+        { provide: GoogleAuth, useFactory: provideGoogleAuth, deps: [ DIContainer ]}
       ]
     };
   }

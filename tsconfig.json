@@ -1,4 +1,7 @@
 {
+    "angularCompilerOptions": {
+        "genDir": "dist/es5"
+    },
     "compilerOptions": {
         "allowJs": false,
         "declaration": true,
