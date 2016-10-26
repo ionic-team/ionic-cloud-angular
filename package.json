@@ -3,10 +3,14 @@
   "version": "0.7.0",
   "description": "Ionic Cloud Client for Angular 2",
   "main": "dist/es5/index.js",
+  "module": "dist/esm/index.js",
   "typings": "dist/es5/index.d.ts",
   "scripts": {
     "lint": "tslint 'src/**/*.ts'",
-    "tsc": "ngc",
+    "tsc:es5": "tsc -p tsconfig-es5.json",
+    "tsc:esm": "tsc -p tsconfig-esm.json",
+    "tsc": "npm run tsc:es5 && npm run tsc:esm",
+    "ngc": "ngc",
     "build": "npm run lint && npm run tsc"
   },
   "repository": {
