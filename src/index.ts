@@ -113,7 +113,7 @@ export function provideClient(container: DIContainer): IClient {
   return container.client;
 }
 
-function provideDatabase(container: DIContainer): IDatabase {
+export function provideDatabase(container: DIContainer): IDatabase {
   return container.database;
 }
 
