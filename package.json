@@ -3,11 +3,16 @@
   "version": "0.7.0",
   "description": "Ionic Cloud Client for Angular 2",
   "main": "dist/es5/index.js",
+  "module": "dist/esm/index.js",
   "typings": "dist/es5/index.d.ts",
   "scripts": {
     "lint": "tslint 'src/**/*.ts'",
-    "tsc": "ngc",
-    "build": "npm run lint && npm run tsc"
+    "tsc:es5": "tsc -p tsconfig-es5.json",
+    "tsc:esm": "tsc -p tsconfig-esm.json",
+    "tsc": "npm run tsc:es5 && npm run tsc:esm",
+    "ngc": "ngc",
+    "build": "npm run lint && npm run tsc",
+    "watch": "./scripts/watch.sh"
   },
   "repository": {
     "type": "git",
@@ -35,6 +40,7 @@
   "devDependencies": {
     "@angular/compiler": "^2.1.1",
     "@angular/compiler-cli": "^2.1.1",
+    "chokidar-cli": "tlancina/chokidar-cli",
     "tslint": "^3.10.2",
     "tslint-ionic-rules": "*",
     "typescript": "^2.0.2",
