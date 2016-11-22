@@ -1,6 +1,6 @@
 {
   "name": "@ionic/cloud-angular",
-  "version": "0.7.0-db.alpha.0",
+  "version": "0.8.0-db.alpha.0",
   "description": "Ionic Cloud Client for Angular 2",
   "main": "dist/es5/index.js",
   "module": "dist/esm/index.js",
