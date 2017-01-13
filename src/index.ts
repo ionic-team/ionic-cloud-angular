@@ -16,7 +16,6 @@ import {
   IEventEmitter,
   IAuth,
   IClient,
-  IDatabase,
   IConfig,
   IDeploy,
   IFacebookAuth,
@@ -113,7 +112,7 @@ export function provideClient(container: DIContainer): IClient {
   return container.client;
 }
 
-export function provideDatabase(container: DIContainer): IDatabase {
+export function provideDatabase(container: DIContainer): Database {
   return container.database;
 }
 
