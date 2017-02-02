@@ -11,7 +11,7 @@
     "tsc:esm": "tsc -p tsconfig-esm.json",
     "tsc": "npm run tsc:es5 && npm run tsc:esm",
     "ngc": "ngc -p tsconfig-ngc.json",
-    "build": "npm run lint && npm run ngc",
+    "build": "npm run lint && npm run ngc && npm run tsc:esm",
     "watch": "./scripts/watch.sh"
   },
   "repository": {
