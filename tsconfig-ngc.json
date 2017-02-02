@@ -13,12 +13,18 @@
         "noImplicitAny": false,
         "noImplicitReturns": true,
         "removeComments": false,
+        "skipLibCheck": true,
         "sourceMap": true,
         "outDir": "dist/es5",
-        "target": "es5"
+        "target": "es5",
+        "types" : [
+            "es6-shim"
+        ]
     },
-    "files": [
-        "typings/index.d.ts",
+    "include": [
         "src/index.ts"
+    ],
+    "exclude": [
+        "node_modules"
     ]
 }

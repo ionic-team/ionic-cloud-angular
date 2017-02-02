@@ -10,11 +10,17 @@
         "noImplicitReturns": true,
         "outDir": "dist/esm",
         "removeComments": false,
+        "skipLibCheck": true,
         "strictNullChecks": true,
-        "target": "es5"
+        "target": "es5",
+        "types" : [
+            "es6-shim"
+        ]
     },
-    "files": [
-        "typings/index.d.ts",
+    "include": [
         "src/index.ts"
+    ],
+    "exclude": [
+        "node_modules"
     ]
 }
