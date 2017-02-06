@@ -10,6 +10,7 @@
         "noImplicitReturns": true,
         "outDir": "dist/esm",
         "removeComments": false,
+        "skipLibCheck": true,
         "strictNullChecks": true,
         "target": "es5"
     },

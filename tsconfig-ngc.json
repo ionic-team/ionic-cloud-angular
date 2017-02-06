@@ -12,9 +12,10 @@
         "moduleResolution": "node",
         "noImplicitAny": false,
         "noImplicitReturns": true,
-        "removeComments": false,
-        "sourceMap": true,
         "outDir": "dist/es5",
+        "removeComments": false,
+        "skipLibCheck": true,
+        "sourceMap": true,
         "target": "es5"
     },
     "files": [

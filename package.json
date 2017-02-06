@@ -7,11 +7,9 @@
   "typings": "dist/es5/index.d.ts",
   "scripts": {
     "lint": "tslint 'src/**/*.ts'",
-    "tsc:es5": "tsc -p tsconfig-es5.json",
-    "tsc:esm": "tsc -p tsconfig-esm.json",
-    "tsc": "npm run tsc:es5 && npm run tsc:esm",
+    "tsc": "tsc -p tsconfig-esm.json",
     "ngc": "ngc -p tsconfig-ngc.json",
-    "build": "npm run lint && npm run ngc && npm run tsc:esm",
+    "build": "npm run lint && npm run ngc && npm run tsc",
     "watch": "./scripts/watch.sh"
   },
   "repository": {
