@@ -41,6 +41,6 @@
     "chokidar-cli": "tlancina/chokidar-cli",
     "tslint": "^3.10.2",
     "tslint-ionic-rules": "*",
-    "typescript": "^2.0.2"
+    "typescript": "^2.2.0"
   }
 }
