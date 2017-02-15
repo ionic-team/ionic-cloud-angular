@@ -10,6 +10,7 @@
     "tsc": "tsc -p tsconfig-esm.json",
     "ngc": "ngc -p tsconfig-ngc.json",
     "build": "npm run lint && npm run ngc && npm run tsc",
+    "prepublish": "npm run build",
     "watch": "./scripts/watch.sh"
   },
   "repository": {
