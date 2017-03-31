@@ -1,6 +1,6 @@
 export * from '@ionic/cloud';
 
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { Injectable, ModuleWithProviders, NgModule, OpaqueToken } from '@angular/core';
 import {
   Auth as _Auth,
