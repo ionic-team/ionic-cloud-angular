@@ -9,6 +9,7 @@
     "lint": "tslint 'src/**/*.ts'",
     "tsc": "tsc -p tsconfig-esm.json",
     "ngc": "ngc -p tsconfig-ngc.json",
+    "prepublish": "npm run build",
     "build": "npm run lint && npm run ngc && npm run tsc",
     "watch": "./scripts/watch.sh"
   },
