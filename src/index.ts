@@ -9,7 +9,6 @@ import {
   Client as _Client,
   CloudSettings,
   Config as _Config,
-  Database as _Database,
   Deploy as _Deploy,
   DIContainer as _DIContainer,
   EventHandler,
@@ -66,9 +65,6 @@ export class Client extends _Client {}
 export class Config extends _Config {}
 
 @Injectable()
-export class Database extends _Database {}
-
-@Injectable()
 export class Deploy extends _Deploy {}
 
 @Injectable()
@@ -112,10 +108,6 @@ export function provideClient(container: DIContainer): IClient {
   return container.client;
 }
 
-export function provideDatabase(container: DIContainer): Database {
-  return container.database;
-}
-
 export function provideDeploy(container: DIContainer): IDeploy {
   return container.deploy;
 }
@@ -149,7 +141,6 @@ export class CloudModule {
         { provide: Auth, useFactory: provideAuth, deps: [ DIContainer ] },
         { provide: Client, useFactory: provideClient, deps: [ DIContainer ] },
         { provide: Config, useFactory: provideConfig, deps: [ DIContainer ] },
-        { provide: Database, useFactory: provideDatabase, deps: [ DIContainer ] },
         { provide: Deploy, useFactory: provideDeploy, deps: [ DIContainer ] },
         { provide: Push, useFactory: providePush, deps: [ DIContainer ] },
         { provide: User, useFactory: provideUser, deps: [ DIContainer ] },
