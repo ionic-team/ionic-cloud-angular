@@ -10,7 +10,6 @@
     "tsc": "tsc -p tsconfig-esm.json",
     "ngc": "ngc -p tsconfig-ngc.json",
     "build": "npm run lint && npm run ngc && npm run tsc",
-    "prepublish": "npm run build",
     "watch": "./scripts/watch.sh"
   },
   "repository": {
@@ -36,11 +35,11 @@
   },
   "peerDependencies": {
     "@angular/core": "^2.1.1 || ^4.0.0",
-    "rxjs": "^5.0.1"
+    "rxjs": "^5.1.1"
   },
   "devDependencies": {
-    "@angular/compiler": "^2.1.1",
-    "@angular/compiler-cli": "^2.1.1",
+    "@angular/compiler": "4.0.2",
+    "@angular/compiler-cli": "4.0.2",
     "chokidar-cli": "tlancina/chokidar-cli",
     "tslint": "^3.10.2",
     "tslint-ionic-rules": "*",
