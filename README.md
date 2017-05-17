@@ -13,4 +13,4 @@ documentation](https://docs.ionic.io/).
 
 ## Local Development
 
-See the [`CONTRIBUTING.md`file](https://github.com/driftyco/ionic-cloud-angular/blob/master/CONTRIBUTING.md).
+See the [`CONTRIBUTING.md`](https://github.com/driftyco/ionic-cloud-angular/blob/master/CONTRIBUTING.md) file.
