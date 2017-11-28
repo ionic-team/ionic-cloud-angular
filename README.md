@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/@ionic/cloud-angular.svg?maxAge=2592000)](https://www.npmjs.com/package/@ionic/cloud-angular)
+## NOTE: Ionic Cloud is evolving into Ionic Pro and this client is deprecated. See the [Migration Guide](http://ionicframework.com/docs/pro/migration/) for more info.
 
 # Ionic Cloud Client for Angular 2
 
