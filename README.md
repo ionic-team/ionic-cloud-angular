@@ -3,7 +3,7 @@
 # Ionic Cloud Client for Angular 2
 
 Angular 2 integration for the [Ionic Cloud
-Client](https://github.com/driftyco/ionic-cloud). Check out [our
+Client](https://github.com/ionic-team/ionic-cloud). Check out [our
 documentation](http://docs.ionic.io/).
 
 ## Issues
@@ -14,4 +14,4 @@ documentation](http://docs.ionic.io/).
 ## Local Development
 
 See the [`CONTRIBUTING.md`
-file](https://github.com/driftyco/ionic-cloud-angular/blob/master/CONTRIBUTING.md).
+file](https://github.com/ionic-team/ionic-cloud-angular/blob/master/CONTRIBUTING.md).
